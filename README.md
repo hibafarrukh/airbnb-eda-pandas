@@ -4,7 +4,7 @@
 
 This project focuses on cleaning and analyzing an Airbnb dataset using **Python (Pandas, NumPy, Matplotlib, Seaborn)**.
 
-The goal was to:
+The goals of this project were to:
 
 * Clean and preprocess raw Airbnb data
 * Handle missing values and inconsistent formats
@@ -30,92 +30,151 @@ The dataset contains Airbnb listings with features such as:
 
 The dataset required multiple preprocessing steps before analysis:
 
-### 1. Initial cleaning and manipulation
+### 1. Initial Cleaning and Manipulation
 
 * Checked dataset structure using `.info()` and `.describe()`
-* Identified missing values and data types.
-* Ensuring no duplicates and handling missing values, like reviews per month where number of reviews was 0 and filling the last_review* *date with a placeholder value and making a boolean called has_last_review 
-* Inspected column relevance; removed columns that were not useful for analysis and focused. on features relevant to pricing and availability
-* Converted columns to appropriate data types, like  Converted price values to numeric format  
-* Ensured numerical columns were usable for analysis, eg  Removed symbols like `$` and commas
-* Checking if numeric values are skewed.
+* Identified missing values and data types
+* Removed duplicate records
+* Handled missing values:
 
- 
+  * For `reviews_per_month`, missing values where `number_of_reviews = 0` were treated accordingly
+  * Filled `last_review` with a placeholder value
+  * Created a boolean feature `has_last_review`
+* Inspected column relevance and removed unnecessary columns
+* Focused on features relevant to pricing and availability
+* Converted columns to appropriate data types:
 
-### **2. Checking correlation and multicollinearity.** 
+  * Cleaned `price` by removing `$` and commas
+  * Converted price to numeric format
+* Checked for skewness in numerical features
 
-  
+---
 
-* Using .corr() revealed direct correlation of the features against price was very low. Heatmap showed no strong correlation with features either.
-* variance_*inflation_*factor showed that multicollinearity is extremely high for latitute and longitude, so dropped those columns as they do not represent distance in a linear way. Instead, created a single feature: distance to Times Square, which captures location effect more meaningfully.
+### 2. Correlation and Multicollinearity Analysis
 
-  
+* Used `.corr()` to evaluate relationships between features
 
- 
+* Observed very low direct correlation between most features and price
 
-  
+* Heatmap confirmed lack of strong linear relationships
+
+* Applied **Variance Inflation Factor (VIF)**:
+
+  * Found extremely high multicollinearity between `latitude` and `longitude`
+  * Dropped both features
+
+* Engineered a new feature:
+
+  * `distance_to_times_square`
+  * This captures location influence more meaningfully than raw coordinates
 
 ---
 
 ## 📊 Exploratory Data Analysis (EDA)
 
-After cleaning, the dataset was analyzed using visualizations and comparisons.
+After cleaning, the dataset was analyzed using multiple visualizations.
 
 ### 1. Univariate Analysis
 
-* Identified price outliers using boxplot.
-*  Applied log1p transformation to numeric columns to correct skew, and visualized the difference using histplots.
+* Identified price outliers using boxplots
+* Applied `log1p` transformation to reduce skewness
+* Compared distributions before and after transformation using histograms
 
 ---
 
 ### 2. Bivariate Analysis
 
-###     a. Room Type vs Price: which types of rooms are most expensive?
+#### a. Room Type vs Price
+
+**Question:** Which types of rooms are most expensive?
 
 * Entire home/apartment listings have the highest average price
 * Private rooms are moderately priced
 * Shared rooms are the cheapest
-* Entire homes also show a wider price range, indicating variability in property quality and location.
-* Visualization used: boxplot and barplot.
+* Entire homes show a wider price range, indicating higher variability
 
-###   b. Neighborhood Group vs Price: how does price vary with different neighborhood groups, and does room type play a role?
+**Visualizations used:** Boxplot, Barplot
 
-* Manhattan consistently has the highest prices across all room types
-* Brooklyn follows as the second most expensive
-* Queens, Bronx, and Staten Island have relatively similar and lower pricing
-* This suggests that **location plays a major role in pricing.**
-* Visualization used: barplot
+---
 
-###    c. Price Distribution vs Number of Reviews: is there any correlation between price and number of reviews?
+#### b. Neighbourhood Group vs Price
 
-* Airbnbs that cost < 200 have the greatest number of reviews, indicating that higher reviewed listings are generally more affordable. 
-* As price increases, number of reviews decreases, suggesting either fewer bookings or a niche market.
-* Visualization used: scatterplot
+**Question:** How does price vary across neighbourhoods?
 
-###   d. Geographical location and room types: which locations are more popular for specific room types?
+* Manhattan has the highest prices across all room types
 
-* Entire homes are dominant across all areas. Similarly, private rooms are also widespread and common.
-* Shared rooms are the least common across all areas.
-* Visualization used: scatterplot
+* Brooklyn is the second most expensive
+
+* Queens, Bronx, and Staten Island show similar and lower pricing
+
+* This suggests that **location is a major driver of price**
+
+**Visualization used:** Barplot
+
+---
+
+#### c. Price vs Number of Reviews
+
+**Question:** Is there a relationship between price and demand?
+
+* Listings priced below 200 have the highest number of reviews
+* As price increases, the number of reviews decreases
+* This suggests:
+
+  * More affordable listings receive more bookings
+  * Expensive listings may cater to a niche market
+
+**Visualization used:** Scatterplot
+
+---
+
+#### d. Location vs Room Type Distribution
+
+**Question:** Which room types are common across locations?
+
+* Entire homes dominate across all areas
+* Private rooms are also widely available
+* Shared rooms are the least common
+
+**Visualization used:** Scatterplot
+
+---
 
 ### 3. Hypothesis Testing
 
-* Hypothesis:  Entire home/apt listings have significantly higher average prices than private or shared rooms. 
+**Hypothesis:** Entire home/apartment listings have significantly higher prices than private rooms
 
-       Null hypothesis: Mean price of entire apt = Mean price of private rooms.                     Alternate: Mean price of entire apt > Mean price of private rooms
+* **Null hypothesis (H₀):** Mean price of entire homes = Mean price of private rooms
 
-Used a two-sample t-test and converted to one tailed test. Since p value obtained was less than 0.05,  there is overwhelming statistical evidence that entire home listings on Airbnb are more expensive than private rooms.
+* **Alternative hypothesis (H₁):** Mean price of entire homes > Mean price of private rooms
 
-  
+* Performed a two-sample t-test and converted it into a one-tailed test
 
-  
+* **Result:**
+
+  * p-value < 0.05
+  * Reject the null hypothesis
+
+* **Conclusion:**
+  There is strong statistical evidence that entire home listings are more expensive than private rooms
 
 ---
 
 ## 🔍 Key Insights
 
-*  Entire homes/apartments dominate the higher price range
-*  Location significantly impacts price, with Manhattan being the most expensive
-*  Price variation is high, especially for entire homes
-*  Shared rooms remain the most affordable option across all areas
-*  Pricing is influenced by multiple factors, not a single variable
+* Entire homes/apartments dominate the higher price range
+* Location significantly impacts pricing, with Manhattan being the most expensive
+* Price variation is highest for entire home listings
+* Shared rooms remain the most affordable option
+* Pricing is influenced by multiple factors rather than a single variable
+
+---
+
+## 🚀 Future Improvements
+
+* Add more feature engineering (e.g., demand indicators, price categories)
+* Perform deeper statistical analysis
+* Build predictive models for price estimation
+* Explore advanced visualizations
+
+---

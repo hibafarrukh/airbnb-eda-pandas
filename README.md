@@ -1,6 +1,6 @@
-# 🏡 Airbnb Data Cleaning & Exploratory Data Analysis (EDA)
+#  Airbnb Data Cleaning & Exploratory Data Analysis (EDA)
 
-## 📌 Project Overview
+##  Project Overview
 
 This project focuses on cleaning and analyzing an Airbnb dataset using **Python (Pandas, NumPy, Matplotlib, Seaborn)**.
 
@@ -13,7 +13,7 @@ The goals of this project were to:
 
 ---
 
-## 📂 Dataset
+##  Dataset
 
 The dataset contains Airbnb listings with features such as:
 
@@ -26,7 +26,7 @@ The dataset contains Airbnb listings with features such as:
 
 ---
 
-## 🧹 Data Cleaning Process
+##  Data Cleaning Process
 
 The dataset required multiple preprocessing steps before analysis:
 
@@ -70,7 +70,7 @@ The dataset required multiple preprocessing steps before analysis:
 
 ---
 
-## 📊 Exploratory Data Analysis (EDA)
+##  Exploratory Data Analysis (EDA)
 
 After cleaning, the dataset was analyzed using multiple visualizations.
 
@@ -160,7 +160,7 @@ After cleaning, the dataset was analyzed using multiple visualizations.
 
 ---
 
-## 🔍 Key Insights
+##  Key Insights
 
 * Entire homes/apartments dominate the higher price range
 * Location significantly impacts pricing, with Manhattan being the most expensive
@@ -170,7 +170,7 @@ After cleaning, the dataset was analyzed using multiple visualizations.
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 * Add more feature engineering (e.g., demand indicators, price categories)
 * Perform deeper statistical analysis
